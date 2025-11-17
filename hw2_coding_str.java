@@ -1,5 +1,3 @@
-package hw3_strings;
-
 import java.util.*;
 import java.io.*;
 
@@ -13,13 +11,12 @@ public class Main {
         for (int i = 0; i < n; i++) {
             String line = br.readLine().trim();
             char symbol = line.charAt(1);
-            String code = line.substring(line.lastIndexOf(' ') + 1, line.length() - 1);
+            String code = line.substring(line.indexOf(',') + 2, line.length() - 1);
             codes.put(code, symbol);
         }
         
         String encoded = br.readLine();
         
-        // Декодируем строку
         StringBuilder decoded = new StringBuilder();
         StringBuilder currentCode = new StringBuilder();
         
@@ -33,20 +30,34 @@ public class Main {
         
         String decodedString = decoded.toString();
         
-        // Жадное разбиение на уникальные подстроки
-        Set<String> used = new HashSet<>();
-        int count = 0;
-        int start = 0;
+        int result = findMaxUniqueSplit(decodedString);
+        System.out.println(result);
+    }
+    
+    private static int findMaxUniqueSplit(String s) {
+        return dfs(s, 0, new HashSet<>());
+    }
+    
+    private static int dfs(String s, int start, Set<String> used) {
+        if (start == s.length()) {
+            return 0;
+        }
         
-        for (int end = 1; end <= decodedString.length(); end++) {
-            String currentSub = decodedString.substring(start, end);
-            if (!used.contains(currentSub)) {
-                used.add(currentSub);
-                count++;
-                start = end;
+        int maxCount = -1;
+        
+        for (int end = start + 1; end <= s.length(); end++) {
+            String substr = s.substring(start, end);
+            
+            if (!used.contains(substr)) {
+                used.add(substr);
+                int nextCount = dfs(s, end, used);
+                if (nextCount != -1) {
+                    maxCount = Math.max(maxCount, 1 + nextCount);
+                }
+                used.remove(substr);
             }
         }
         
-        System.out.println(count);
+        return maxCount;
     }
 }
