@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main {
+public class hw6_contur {
 
     static final int N = 10;
     static int[][] a = new int[N][N];
@@ -46,6 +46,7 @@ public class Main {
                 }
             }
         }
+        sc.close();
 
         System.out.println("NO");
     }
