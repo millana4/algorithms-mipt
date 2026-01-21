@@ -47,7 +47,6 @@ public class stack_3_summin_opt {
             deque.addLast(i);
             sum += arr[deque.peekFirst()];
         }
-
         System.out.println(sum);
     }
 }
