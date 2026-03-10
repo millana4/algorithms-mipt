@@ -36,7 +36,7 @@ import java.util.Scanner;
  * @version 1.0
  * @since 2024
  */
-public class Main {
+public class MainLib {
 
     // ===================================================================
     // ЛОГИРОВАНИЕ И РЕСУРСЫ
